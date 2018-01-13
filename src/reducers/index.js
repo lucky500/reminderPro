@@ -11,7 +11,6 @@ const reminder = (action) => {
 }
 //one reducer as a constant by the name of reminders
 // we will have 2 parameters, a state paremeter with the default of an empty array
-// and an action parameter
 const reminders = (state=[], action) => {
   //initialize reminders variable as null, later on we will change the reminders
   //varialbe to become a return state
@@ -35,6 +34,5 @@ const reminders = (state=[], action) => {
     return state;
   }
 }
-
 export default reminders;
 

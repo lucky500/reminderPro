@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { addReminder } from '../actions';
 
 class App extends Component {
+  //add state to component, so we recognize what the user typed on the input field.
+  //set initial state as obj with text to empty string.
+  constructor(props){
+    super(props);
+    this.state = {
+      text: ''
+    }
+  }
+
+  //pass text from our action addReminder  and pass state.text
+  addReminder(){
+    this.props.addReminder(this.state.text)
+  }
+
   render(){
     return(
       <div className="app container">
@@ -11,15 +28,23 @@ class App extends Component {
           <div className="col-10">
             <input 
               className="form-control" 
-              placeholder="I have to..." />
+              placeholder="I have to..."
+              onChange={event => this.setState({text: event.target.value})} />
           </div>
         </div>
         <button 
           type="button" 
-          className="btn btn-primary">Submit</button>
+          className="btn btn-primary"
+          onClick={() => this.addReminder()}
+          >Submit</button>
       </div>
     )
   }
 }
 
-export default App;
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({addReminder}, dispatch);
+}
+
+export default connect(null, {mapDispatchToProps})(App);
