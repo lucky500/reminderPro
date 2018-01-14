@@ -1,4 +1,4 @@
-import { ADD_REMINDER } from '../constants';
+import { ADD_REMINDER, DELETE_REMINDER } from '../constants';
 
 //helper reminder function that takes our action as a parameter
 const reminder = (action) => {
@@ -9,6 +9,16 @@ const reminder = (action) => {
     id: Math.random()
   }
 }
+
+//using filter to not modify state directly.
+//the filter will return anything that passes our equality test.
+//by checking if reminder.id !== id, we will have an array of values that are !== id
+const removeById = (state=[], id) => {
+  const reminders = state.filter(reminder => reminder.id !== id);
+  console.log('new reduced reminders:', reminders);
+  return reminders;
+}
+
 //one reducer as a constant by the name of reminders
 // we will have 2 parameters, a state paremeter with the default of an empty array
 const reminders = (state=[], action) => {
@@ -29,9 +39,13 @@ const reminders = (state=[], action) => {
       reminders = [...state, reminder(action)];
       console.log('reminders as state', reminders);
       return reminders;
-      //in a switch statement we always want a default, and we will return the state
+
+    case DELETE_REMINDER:
+      reminders = removeById(state, action.id);
+      return reminders;
+    //in a switch statement we always want a default, and we will return the state
     default:
-    return state;
+      return state;
   }
 }
 export default reminders;
