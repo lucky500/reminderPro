@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addReminder } from '../actions';
+import { addReminder, deleteReminder } from '../actions';
 
 class App extends Component {
   //add state to component, so we recognize what the user typed on the input field.
@@ -17,6 +17,11 @@ class App extends Component {
     this.props.addReminder(this.state.text)
   }
 
+  deleteReminder(id){
+    console.log('deleting in app:', id);
+    console.log('this.props:', this.props);
+  }
+
   renderReminders(){
     //we can use this syntax for our variable, when the variable name and its
     //value is the same.
@@ -27,7 +32,12 @@ class App extends Component {
           reminders.map(reminder =>{
             return (
               <li key={reminder.id} className="list-group-item">
-                <div>{reminder.text}</div>
+                <div className="list-item">{reminder.text}</div>
+                <div className="list-item delete-button"
+                     onClick={() => this.deleteReminder(reminder.id)}
+                >
+                  &#x2715;
+                </div>
               </li>
             )
           })
@@ -69,4 +79,4 @@ function mapStateToProps(state){
 }
 
 
-export default connect(mapStateToProps, { addReminder })(App);
+export default connect(mapStateToProps, { addReminder, deleteReminder })(App);

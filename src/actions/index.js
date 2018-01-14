@@ -1,4 +1,4 @@
-import { ADD_REMINDER } from '../constants';
+import { ADD_REMINDER, DELETE_REMINDER } from '../constants';
 
 //action creator
 export const addReminder = (text) => {
@@ -11,3 +11,12 @@ export const addReminder = (text) => {
   return action;
 }
 
+
+export const deleteReminder = (id) => {
+  const action = {
+    type: DELETE_REMINDER,
+    id
+  }
+  console.log('deleting in actions', action);
+  return action;
+}
