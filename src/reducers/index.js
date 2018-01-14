@@ -1,4 +1,4 @@
-import { ADD_REMINDER, DELETE_REMINDER } from '../constants';
+import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS } from '../constants';
 import { bake_cookie, read_cookie } from 'sfcookies';
 
 //helper reminder function that takes our action as a parameter
@@ -50,6 +50,12 @@ const reminders = (state=[], action) => {
       reminders = removeById(state, action.id);
       bake_cookie('reminders', reminders);
       return reminders;
+
+    case CLEAR_REMINDERS:
+      reminders = [];
+      bake_cookie('reminders', reminders);
+      return reminders;
+      
     //in a switch statement we always want a default, and we will return the state
     default:
       return state;
